@@ -4,6 +4,7 @@ pipeline {
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 checkout scm
@@ -15,9 +16,12 @@ pipeline {
                 script {
                     def startTime = new Date(currentBuild.startTimeInMillis).toString()
 
-                    def triggeredBy = currentBuild.rawBuild.getCauses().collect {
-                        it.shortDescription
-                    }.join(", ")
+                    // SAFE method (no rawBuild)
+                    def triggeredBy = currentBuild.getBuildCauses()
+                            .collect { it.shortDescription }
+                            .join(", ")
+
+                    def gitBranch = env.GIT_BRANCH ?: 'origin/master'
 
                     def changes = []
                     currentBuild.changeSets.each { changeSet ->
@@ -31,8 +35,6 @@ pipeline {
                             ]
                         }
                     }
-
-                    def gitBranch = env.GIT_BRANCH ?: scm.branches[0].name
 
                     def payload = [
                         source      : "jenkins",
@@ -49,6 +51,7 @@ pipeline {
                     echo JsonOutput.prettyPrint(JsonOutput.toJson(payload))
                     echo "========================"
 
+                    // Your test webhook
                     httpRequest(
                         httpMode: 'POST',
                         url: 'https://webhook.site/af53a594-f5db-4add-b334-ef6fdc8bcbca',
@@ -60,4 +63,3 @@ pipeline {
         }
     }
 }
-
