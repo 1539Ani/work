@@ -51,7 +51,7 @@ pipeline {
 
                     httpRequest(
                         httpMode: 'POST',
-                        url: 'https://YOUR_INSTANCE.service-now.com/api/your_event_source',
+                        url: 'https://webhook.site/af53a594-f5db-4add-b334-ef6fdc8bcbca',
                         contentType: 'APPLICATION_JSON',
                         requestBody: JsonOutput.toJson(payload)
                     )
