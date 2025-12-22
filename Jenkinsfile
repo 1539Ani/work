@@ -56,6 +56,7 @@ pipeline {
                         httpMode: 'POST',
                         url: 'https://techmtriggersdev.service-now.com/api/sn_jenkinsv2_spoke/testjenkins?X-SkipCookieAuthentication=true&jenkins-token=now_BTj9hpjQkTHGEW4x4s1cIP_vMh2vlzHvttLnuoWjfdF7FWAkE0xerobCs15ZALcSYAiSzko6hLpNRUpvDR6M4g',
                         contentType: 'APPLICATION_JSON',
+                        authorization: 'now_Z8F33CStdp2x5g-DTwu_eBKgvPpS33PJN6s16xkGQtHjKyAcrNTV-iRQbELS1w7XXTAsIm3i1gGFOW9aAkOu-Q',
                         requestBody: JsonOutput.toJson(payload)
                     )
                 }
