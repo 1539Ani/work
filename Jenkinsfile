@@ -54,10 +54,10 @@ pipeline {
                     // Your test webhook
                     httpRequest(
                         httpMode: 'POST',
-                        url: 'https://webhook.site/0fb194c3-6c22-4a4e-9f59-e97ff87905b7',
+                        url: 'https://techmtriggersdev.service-now.com/api/sn_jenkinsv2_spoke/jenkins001?X-SkipCookieAuthentication=true',
                         contentType: 'APPLICATION_JSON',
-                        customHeaders: [
-                            [name: 'Authorization', value: 'now_Z8F33CStdp2x5g-DTwu_eBKgvPpS33PJN6s16xkGQtHjKyAcrNTV-iRQbELS1w7XXTAsIm3i1gGFOW9aAkOu-Q']
+                        headers: [
+                            [name: 'authorization', value: 'now_Z8F33CStdp2x5g-DTwu_eBKgvPpS33PJN6s16xkGQtHjKyAcrNTV-iRQbELS1w7XXTAsIm3i1gGFOW9aAkOu-Q']
                         ],
                         requestBody: JsonOutput.toJson(payload),
                         validResponseCodes: '100:399'
