@@ -47,8 +47,11 @@ pipeline {
                         changes     : changes
                     ]
 
+                    // Wrap payload inside "data" object
+                    def wrappedPayload = [ data: payload ]
+
                     echo "===== JSON PAYLOAD ====="
-                    echo JsonOutput.prettyPrint(JsonOutput.toJson(payload))
+                    echo JsonOutput.prettyPrint(JsonOutput.toJson(wrappedPayload))
                     echo "========================"
 
                     // Your test webhook
@@ -59,8 +62,7 @@ pipeline {
                         customHeaders: [
                             [name: 'jenkinsKey', value: 'now_Z8F33CStdp2x5g-DTwu_eBKgvPpS33PJN6s16xkGQtHjKyAcrNTV-iRQbELS1w7XXTAsIm3i1gGFOW9aAkOu-Q']
                         ],
-                        requestBody: JsonOutput.toJson(payload)
-                        // validResponseCodes: '100:399'
+                        requestBody: JsonOutput.toJson(wrappedPayload)
                     )
                 }
             }
