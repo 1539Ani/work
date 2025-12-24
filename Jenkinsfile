@@ -56,11 +56,11 @@ pipeline {
                         httpMode: 'POST',
                         url: 'https://techmtriggersdev.service-now.com/api/sn_jenkinsv2_spoke/jenkins001?X-SkipCookieAuthentication=true',
                         contentType: 'APPLICATION_JSON',
-                        headers: [
-                            [name: 'authorization', value: 'now_Z8F33CStdp2x5g-DTwu_eBKgvPpS33PJN6s16xkGQtHjKyAcrNTV-iRQbELS1w7XXTAsIm3i1gGFOW9aAkOu-Q']
+                        customHeaders: [
+                            [name: 'Authorization', value: 'Bearer now_Z8F33CStdp2x5g-DTwu_eBKgvPpS33PJN6s16xkGQtHjKyAcrNTV-iRQbELS1w7XXTAsIm3i1gGFOW9aAkOu-Q']
                         ],
-                        requestBody: JsonOutput.toJson(payload),
-                        validResponseCodes: '100:399'
+                        requestBody: JsonOutput.toJson(payload)
+                        // validResponseCodes: '100:399'
                     )
                 }
             }
