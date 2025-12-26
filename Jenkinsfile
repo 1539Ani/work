@@ -60,7 +60,7 @@ pipeline {
                         url: 'https://techmtriggersdev.service-now.com/api/sn_jenkinsv2_spoke/testjenkins?X-SkipCookieAuthentication=true&jenkins-token=now_BTj9hpjQkTHGEW4x4s1cIP_vMh2vlzHvttLnuoWjfdF7FWAkE0xerobCs15ZALcSYAiSzko6hLpNRUpvDR6M4g',
                         contentType: 'APPLICATION_JSON',
                         customHeaders: [
-                            [name: 'authorization', value: 'Bearer now_BTj9hpjQkTHGEW4x4s1cIP_vMh2vlzHvttLnuoWjfdF7FWAkE0xerobCs15ZALcSYAiSzko6hLpNRUpvDR6M4g']
+                            [name: 'X-ServiceNow-Token', value: 'now_BTj9hpjQkTHGEW4x4s1cIP_vMh2vlzHvttLnuoWjfdF7FWAkE0xerobCs15ZALcSYAiSzko6hLpNRUpvDR6M4g']
                         ],
                         requestBody: JsonOutput.toJson(wrappedPayload)
                     )
