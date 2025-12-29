@@ -21,6 +21,9 @@ pipeline {
                         .join(", ")
  
                     def gitBranch = env.GIT_BRANCH ?: 'origin/master'
+
+                    def repoUrl = scm.userRemoteConfigs[0].url
+                    def repoName = repoUrl.tokenize('/').last().replace('.git', '')
  
                     def changes = []
                     currentBuild.changeSets.each { changeSet ->
@@ -40,6 +43,8 @@ pipeline {
                         job         : env.JOB_NAME,
                         build       : env.BUILD_NUMBER,
                         status      : currentBuild.currentResult,
+                        repository  : repoName,        
+                        repoUrl     : repoUrl,
                         branch      : gitBranch,
                         triggeredBy : triggeredBy,
                         buildStart  : startTime,
