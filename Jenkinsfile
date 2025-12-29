@@ -57,7 +57,7 @@ pipeline {
                     // Your test webhook
                     httpRequest(
                         httpMode: 'POST',
-                        url: 'https://techmtriggersdev.service-now.com/api/sn_jenkinsv2_spoke/jenkins002',
+                        url: 'https://techmtriggersdev.service-now.com/api/sn_jenkinsv2_spoke/testjenkins?X-SkipCookieAuthentication=true&jenkins-token=now_FNLRot1VxX1dkSdFOw-ZsI1ppo4Lu414T8ZTwTVqaomOtXkxcLFDUkrakfthYYrGLiJwsC8_AK2f9B34dDhWOA',
                         contentType: 'APPLICATION_JSON',
                         requestBody: JsonOutput.toJson(wrappedPayload)
                     )
