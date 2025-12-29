@@ -46,17 +46,17 @@ pipeline {
                         changes     : changes
                     ]
  
-                    def wrappedPayload = [ data: payload ]
+                    // def wrappedPayload = [ data: payload ]
  
                     echo "===== JSON PAYLOAD ====="
-                    echo JsonOutput.prettyPrint(JsonOutput.toJson(wrappedPayload))
+                    echo JsonOutput.prettyPrint(JsonOutput.toJson(payload))
                     echo "========================"
  
                     httpRequest(
                         httpMode: 'POST',
                         url: 'https://webhook.site/1fb88738-48cf-4bb9-8579-dfe5efbd72be',
                         contentType: 'APPLICATION_JSON',
-                        requestBody: JsonOutput.toJson(wrappedPayload)
+                        requestBody: JsonOutput.toJson(payload)
                     )
                 }
             }
