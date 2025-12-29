@@ -1,28 +1,27 @@
 import groovy.json.JsonOutput
-
+ 
 pipeline {
     agent any
-
+ 
     stages {
-
+ 
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-
-        stage('Collect Git Details') {
+ 
+        stage('Collect Git Details & Send Webhook') {
             steps {
                 script {
                     def startTime = new Date(currentBuild.startTimeInMillis).toString()
-
-                    // SAFE method (no rawBuild)
+ 
                     def triggeredBy = currentBuild.getBuildCauses()
-                            .collect { it.shortDescription }
-                            .join(", ")
-
+                        .collect { it.shortDescription }
+                        .join(", ")
+ 
                     def gitBranch = env.GIT_BRANCH ?: 'origin/master'
-
+ 
                     def changes = []
                     currentBuild.changeSets.each { changeSet ->
                         changeSet.items.each { entry ->
@@ -35,7 +34,7 @@ pipeline {
                             ]
                         }
                     }
-
+ 
                     def payload = [
                         source      : "jenkins",
                         job         : env.JOB_NAME,
@@ -46,18 +45,16 @@ pipeline {
                         buildStart  : startTime,
                         changes     : changes
                     ]
-
-                    // Wrap payload inside "data" object
+ 
                     def wrappedPayload = [ data: payload ]
-
+ 
                     echo "===== JSON PAYLOAD ====="
                     echo JsonOutput.prettyPrint(JsonOutput.toJson(wrappedPayload))
                     echo "========================"
-
-                    // Your test webhook
+ 
                     httpRequest(
                         httpMode: 'POST',
-                        url: 'https://techmtriggersdev.service-now.com/api/sn_jenkinsv2_spoke/testjenkins?X-SkipCookieAuthentication=true&jenkins-token=now_lNgxLGgf_qQ_HU_BrOUFY5jriG4g9yh0KyHfQzOtWeAyIlWqGO7GDR96LNYkHyHLxVgsg30RFesdfTBx35pvug',
+                        url: 'https://webhook.site/1fb88738-48cf-4bb9-8579-dfe5efbd72be',
                         contentType: 'APPLICATION_JSON',
                         requestBody: JsonOutput.toJson(wrappedPayload)
                     )
