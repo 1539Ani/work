@@ -1,5 +1,11 @@
 public class Basic {
     public static void main(String[] args) {
-        System.outprintln("world");
+        var gr = new GlideRecord();
+        gr.addActiveQuery();
+        gr.query();
+
+        while(gr.next()){
+            gs.info('throw build error');
+        }
     }
 }
